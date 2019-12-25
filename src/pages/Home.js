@@ -1,17 +1,15 @@
 import React from "react";
-import { Layout, Typography, Spin, Card, Row, Col } from "antd";
+import { Layout, Typography, Spin, Row, Col } from "antd";
 import { Link } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
+import Image from "react-bootstrap/Image";
 
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import SHOP_ITEMS from "../graphql/queries/shopItems";
 import routes from "../utils/routes";
-
 import { formatMoney } from "../utils/helpers";
 const { Content } = Layout;
-const { Meta } = Card;
-
 const { Paragraph } = Typography;
 
 function Home() {
@@ -43,15 +41,25 @@ function Home() {
                 data.shopItems.map((item) => (
                   <Col key={item.id} span={24} sm={12} md={8} xl={6}>
                     <Link to={routes.shopItem + item.id}>
-                      <Card
-                        hoverable
-                        cover={<img alt="example" src={item.image} />}
-                      >
-                        <Meta
-                          title={item.name}
-                          description={formatMoney(item.price)}
-                        />
-                      </Card>
+                      <Row>
+                        <Col>
+                          <Image fluid src={item.image} />
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col>
+                          <Paragraph
+                            strong
+                            style={{
+                              marginTop: 12,
+                              marginBottom: 4,
+                            }}
+                          >
+                            {formatMoney(item.price)}
+                          </Paragraph>
+                          <Paragraph>{item.name}</Paragraph>
+                        </Col>
+                      </Row>
                     </Link>
                   </Col>
                 ))}

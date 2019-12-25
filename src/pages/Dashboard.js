@@ -1,23 +1,22 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 import {
   Layout,
-  Menu,
   InputNumber,
-  Icon,
   Button,
   Typography,
   Form,
   Input,
+  Row,
+  Col,
 } from "antd";
 import { useMutation } from "@apollo/react-hooks";
 import withProtectedRoute from "../hoc/withProtectedRoute";
-import routes from "../utils/routes";
 import SHOP_ITEMS from "../graphql/queries/shopItems";
 import ADD_SHOP_ITEM from "../graphql/mutations/addShopItem";
+import Header from "../components/Header/Header";
+import Footer from "../components/Footer/Footer";
 
-const { SubMenu } = Menu;
-const { Header, Content, Sider } = Layout;
+const { Content } = Layout;
 const { Title, Paragraph } = Typography;
 const { TextArea } = Input;
 
@@ -61,13 +60,7 @@ function AddShopItemForm({ form }) {
   }
 
   return (
-    <Form
-      layout="vertical"
-      style={{
-        maxWidth: 480,
-      }}
-      onSubmit={handleSubmit}
-    >
+    <Form layout="vertical" onSubmit={handleSubmit}>
       <Form.Item label="Name" hasFeedback>
         {getFieldDecorator(`name`, {
           rules: [
@@ -121,7 +114,16 @@ function AddShopItemForm({ form }) {
         <Paragraph>{JSON.stringify(error, null, 2)}</Paragraph>
       )}
       <Form.Item>
-        <Button type="primary" htmlType="submit">
+        <Button
+          type="primary"
+          disabled={loading}
+          loading={loading}
+          size="large"
+          htmlType="submit"
+          style={{
+            minWidth: 200,
+          }}
+        >
           Submit
         </Button>
       </Form.Item>
@@ -133,64 +135,33 @@ const EnhancedAddShopItemForm = Form.create()(AddShopItemForm);
 
 function Dashboard() {
   return (
-    <Layout>
-      <Header className="header">
-        <Menu
-          theme="dark"
-          mode="horizontal"
-          defaultSelectedKeys={["2"]}
-          style={{ lineHeight: "64px" }}
-        >
-          <Menu.Item key="1">
-            <NavLink to={routes.home}>Clothalia</NavLink>
-          </Menu.Item>
-        </Menu>
-      </Header>
-      <Layout>
-        <Sider width={200} style={{ background: "#fff" }}>
-          <Menu
-            mode="inline"
-            defaultSelectedKeys={["1"]}
-            defaultOpenKeys={["shopItems"]}
-            style={{ height: "100%", borderRight: 0 }}
-          >
-            <SubMenu
-              key="shopItems"
-              title={
-                <span>
-                  <Icon type="shop" />
-                  Shop items
-                </span>
-              }
-            >
-              <Menu.Item key="1">
-                <Icon type="plus-circle" />
-                Add shop item
-              </Menu.Item>
-            </SubMenu>
-          </Menu>
-        </Sider>
-        <Layout style={{ padding: "0 24px 24px" }}>
-          <Title
-            level={4}
-            style={{
-              marginTop: 24,
-            }}
-          >
-            Add shop item
-          </Title>
-          <Content
-            style={{
-              background: "#fff",
-              padding: 24,
-              marginTop: 8,
-              minHeight: 280,
-            }}
-          >
-            <EnhancedAddShopItemForm />
-          </Content>
-        </Layout>
-      </Layout>
+    <Layout style={{ background: "#f3f3f3" }}>
+      <Header />
+      <Content
+        style={{
+          paddingTop: 40,
+          paddingBottom: 80,
+        }}
+      >
+        <Row type="flex" justify="center">
+          <Col span={24} md={16} xl={12}>
+            <Row gutter={[24, 24]}>
+              <Col>
+                <Title level={2}>Add shop item</Title>
+              </Col>
+              <Col
+                style={{
+                  background: "white",
+                  padding: 32,
+                }}
+              >
+                <EnhancedAddShopItemForm />
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </Content>
+      <Footer />
     </Layout>
   );
 }

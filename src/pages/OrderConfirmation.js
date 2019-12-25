@@ -36,7 +36,7 @@ function OrderConfirmation() {
                   <Spin size="large" />
                 </Col>
               )}
-              {data && data.currentUser && data.currentUser.orders && (
+              {data && data.currentUser && data.currentUser.orders.length > 0 && (
                 <Col>
                   <Row style={{ padding: 12 }}>
                     <Col

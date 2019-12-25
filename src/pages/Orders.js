@@ -23,17 +23,27 @@ function Orders() {
       <Content style={{ padding: "40px 24px" }}>
         <Row type="flex" justify="center">
           <Col lg={16} xl={16}>
-            <Row type="flex" justify={loading ? "center" : "start"}>
+            <Row>
               <Col style={{ padding: 8 }}>
                 <Title level={3}>Your orders</Title>
               </Col>
               {error && (
-                <Col>
+                <Col
+                  style={{
+                    background: "white",
+                    padding: 32,
+                  }}
+                >
                   <Paragraph>Something went wrong...</Paragraph>
                 </Col>
               )}
               {loading && (
-                <Col>
+                <Col
+                  style={{
+                    background: "white",
+                    padding: 32,
+                  }}
+                >
                   <Spin size="large" />
                 </Col>
               )}
@@ -41,6 +51,24 @@ function Orders() {
               {data &&
                 data.currentUser &&
                 data.currentUser.orders &&
+                data.currentUser.orders.length === 0 && (
+                  <Row>
+                    <Col
+                      style={{
+                        background: "white",
+                        padding: 32,
+                      }}
+                    >
+                      <Title level={4}>You have no past orders</Title>
+                      <Paragraph>Visit our shop to get started.</Paragraph>
+                    </Col>
+                  </Row>
+                )}
+
+              {data &&
+                data.currentUser &&
+                data.currentUser.orders &&
+                data.currentUser.orders.length > 0 &&
                 data.currentUser.orders.map((order) => (
                   <Col key={order.id}>
                     <Row style={{ padding: 12 }}>

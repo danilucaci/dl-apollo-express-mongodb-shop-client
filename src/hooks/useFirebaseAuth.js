@@ -13,6 +13,7 @@ const SIGNUP_USER = gql`
       email
       displayName
       role
+      photoURL
     }
   }
 `;
@@ -39,6 +40,7 @@ function useFirebaseAuth() {
                   id: user.uid,
                   displayName: user.displayName,
                   email: user.email,
+                  photoURL: user.photoURL,
                   role: "ADMIN",
                 },
               },

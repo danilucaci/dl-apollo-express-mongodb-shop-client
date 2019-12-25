@@ -1,7 +1,7 @@
 const localResolvers = {
   Mutation: {
     setLocalAuth: (_, { input }, { cache }) => {
-      const { isAuthenticated, id, displayName, email, role } = input;
+      const { isAuthenticated, id, displayName, email, role, photoURL } = input;
 
       const data = {
         localAuth: {
@@ -12,6 +12,7 @@ const localResolvers = {
             displayName,
             email,
             role,
+            photoURL,
             __typename: "CurrentLocalUser",
           },
         },

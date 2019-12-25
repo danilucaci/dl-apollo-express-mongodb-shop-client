@@ -11,6 +11,7 @@ const localTypeDefs = gql`
     displayName: String!
     email: String!
     role: CurrentLocalUserRole!
+    photoURL: String
   }
 
   type LocalAuth {
@@ -24,6 +25,7 @@ const localTypeDefs = gql`
     displayName: String!
     email: String!
     role: CurrentLocalUserRole!
+    photoURL: String
   }
 
   extend type Query {

@@ -72,6 +72,7 @@ const initialData = {
       displayName: null,
       email: null,
       role: null,
+      photoURL: null,
       __typename: "CurrentLocalUser",
     },
   },

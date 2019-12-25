@@ -9,6 +9,7 @@ export const LOCAL_AUTH = gql`
         displayName
         email
         role
+        photoURL
       }
     }
   }

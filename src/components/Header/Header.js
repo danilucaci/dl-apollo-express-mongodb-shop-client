@@ -39,6 +39,10 @@ function Dropdowns() {
   const [accountMenuOpen, setAccountMenuOpen] = useState(false);
   let history = useHistory();
 
+  const {
+    data: { localAuth: { currentLocalUser } = {} },
+  } = useQuery(LOCAL_AUTH);
+
   return (
     <>
       <Badge
@@ -70,7 +74,12 @@ function Dropdowns() {
         }}
       >
         <Avatar
-          src={avatarPlaceholder}
+          src={
+            currentLocalUser.photoURL
+              ? currentLocalUser.photoURL
+              : avatarPlaceholder
+          }
+          onError={(e) => (e.target.src = avatarPlaceholder)}
           style={{
             marginLeft: 24,
           }}

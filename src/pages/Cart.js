@@ -243,7 +243,7 @@ function Cart() {
                       type="primary"
                       size="large"
                       style={{ width: "100%", marginTop: 24 }}
-                      disabled={addOrderLoading}
+                      disabled={addOrderLoading || currentUserCart.length === 0}
                       loading={addOrderLoading}
                       onClick={() => {
                         if (currentLocalUserID) {

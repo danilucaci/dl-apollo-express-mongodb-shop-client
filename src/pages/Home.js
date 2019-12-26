@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, Typography, Spin, Row, Col } from "antd";
+import { Layout, Typography, Spin, Row, Col, Button } from "antd";
 import { Link } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import Image from "react-bootstrap/Image";
@@ -13,7 +13,14 @@ const { Content } = Layout;
 const { Paragraph } = Typography;
 
 function Home() {
-  const { data, loading, error } = useQuery(SHOP_ITEMS);
+  const {
+    data: {
+      shopItems: { edges, pageInfo: { hasNextPage, endCursor } = {} } = {},
+    } = {},
+    loading,
+    error,
+    fetchMore,
+  } = useQuery(SHOP_ITEMS);
 
   return (
     <Layout style={{ background: "#f3f3f3" }}>
@@ -36,14 +43,13 @@ function Home() {
                   <Spin size="large" />
                 </Col>
               )}
-              {data &&
-                data.shopItems &&
-                data.shopItems.map((item) => (
-                  <Col key={item.id} span={24} sm={12} md={8} xl={6}>
-                    <Link to={routes.shopItem + item.id}>
+              {edges &&
+                edges.map((edge) => (
+                  <Col key={edge.node.id} span={24} sm={12} md={8} xl={6}>
+                    <Link to={routes.shopItem + edge.node.id}>
                       <Row>
                         <Col>
-                          <Image fluid src={item.image} />
+                          <Image fluid src={edge.node.image} />
                         </Col>
                       </Row>
                       <Row>
@@ -55,15 +61,64 @@ function Home() {
                               marginBottom: 4,
                             }}
                           >
-                            {formatMoney(item.price)}
+                            {formatMoney(edge.node.price)}
                           </Paragraph>
-                          <Paragraph>{item.name}</Paragraph>
+                          <Paragraph>{edge.node.name}</Paragraph>
                         </Col>
                       </Row>
                     </Link>
                   </Col>
                 ))}
             </Row>
+            {!loading && (
+              <Row
+                type="flex"
+                justify="center"
+                style={{
+                  marginTop: 80,
+                }}
+              >
+                <Col>
+                  <Button
+                    size="large"
+                    style={{
+                      minWidth: 240,
+                    }}
+                    loading={loading}
+                    disabled={loading || !hasNextPage}
+                    onClick={() => {
+                      fetchMore({
+                        variables: {
+                          after: endCursor,
+                        },
+                        updateQuery: (prevResult, { fetchMoreResult }) => {
+                          if (!fetchMoreResult) return prevResult;
+
+                          const newEdges = fetchMoreResult.shopItems.edges;
+                          const newPageInfo =
+                            fetchMoreResult.shopItems.pageInfo;
+
+                          const data = {
+                            shopItems: {
+                              ...prevResult.shopItems,
+                              edges: [
+                                ...prevResult.shopItems.edges,
+                                ...newEdges,
+                              ],
+                              pageInfo: newPageInfo,
+                            },
+                          };
+
+                          return data;
+                        },
+                      });
+                    }}
+                  >
+                    {hasNextPage ? "Load more" : "No more results"}
+                  </Button>
+                </Col>
+              </Row>
+            )}
           </Col>
         </Row>
       </Content>

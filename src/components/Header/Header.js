@@ -34,7 +34,11 @@ const { Header: AntDHeader } = Layout;
 const { Paragraph, Text, Title } = Typography;
 
 function Dropdowns() {
-  const { data, loading, error } = useQuery(CURRENT_USER_CART);
+  const {
+    data: { currentUser: { cart: currentUserCart } = {} } = {},
+    loading,
+    error,
+  } = useQuery(CURRENT_USER_CART);
   const [cartOpen, setCartOpen] = useState(false);
   const [accountMenuOpen, setAccountMenuOpen] = useState(false);
   let history = useHistory();
@@ -47,14 +51,7 @@ function Dropdowns() {
     <>
       <Badge
         onClick={() => setCartOpen((open) => !open)}
-        count={
-          loading
-            ? 0
-            : data &&
-              data.currentUser &&
-              data.currentUser.cart &&
-              getCartSize(data.currentUser.cart)
-        }
+        count={currentUserCart ? getCartSize(currentUserCart) : 0}
       >
         <Icon
           type="shopping-cart"
@@ -107,8 +104,8 @@ function Dropdowns() {
             </Col>
           )}
 
-          {data && data.currentUser && data.currentUser.cart.length > 0 ? (
-            data.currentUser.cart.map((cartItem) => (
+          {currentUserCart && currentUserCart.length > 0 ? (
+            currentUserCart.map((cartItem) => (
               <React.Fragment key={cartItem.id}>
                 <Col>
                   <Row type="flex" gutter={[24, 24]}>
@@ -172,8 +169,8 @@ function Dropdowns() {
                         display: "inline-block",
                       }}
                     >
-                      {data && data.currentUser && data.currentUser.cart
-                        ? formatMoney(calculateCartTotal(data.currentUser.cart))
+                      {currentUserCart
+                        ? formatMoney(calculateCartTotal(currentUserCart))
                         : 0}
                     </Text>
                   </Col>

@@ -23,19 +23,21 @@ function ShopItem() {
 
   const [
     addCartItem,
-    { called: mutationCalled, error: mutationError },
+    { called: addCartItemCalled, error: addCartItemError },
   ] = useMutation(ADD_CART_ITEM);
 
-  const { data: itemData, loading: itemLoading, error: itemError } = useQuery(
-    SHOP_ITEM,
-    {
-      variables: { id },
-    },
-  );
+  const {
+    data: { shopItem } = {},
+    loading: shopItemLoading,
+    error: shopItemError,
+  } = useQuery(SHOP_ITEM, {
+    variables: { id },
+  });
 
-  const { data: itemSizesData, loading: itemSizesLoading } = useQuery(
-    ITEM_SIZES,
-  );
+  const {
+    data: { __type: { enumValues: shopItemSizes } = {} } = {},
+    loading: shopItemSizesLoading,
+  } = useQuery(ITEM_SIZES);
 
   function handleItemSizeChange(value) {
     setSelectedItemSize(value);
@@ -78,22 +80,22 @@ function ShopItem() {
             <Row
               gutter={[24, 24]}
               type="flex"
-              justify={itemLoading ? "center" : "start"}
+              justify={shopItemLoading ? "center" : "start"}
             >
-              {itemError && (
+              {shopItemError && (
                 <Col>
                   <Paragraph>Something went wrong...</Paragraph>
                 </Col>
               )}
-              {itemLoading && (
+              {shopItemLoading && (
                 <Col>
                   <Spin size="large" />
                 </Col>
               )}
-              {itemData && itemData.shopItem && (
+              {shopItem && (
                 <>
                   <Col md={12}>
-                    <Image fluid src={itemData.shopItem.image} />
+                    <Image fluid src={shopItem.image} />
                   </Col>
                   <Col
                     md={12}
@@ -101,20 +103,17 @@ function ShopItem() {
                       padding: 24,
                     }}
                   >
-                    <Title level={3}>{itemData.shopItem.name}</Title>
-                    <Paragraph>{itemData.shopItem.description}</Paragraph>
-                    <Paragraph strong>
-                      {formatMoney(itemData.shopItem.price)}
-                    </Paragraph>
+                    <Title level={3}>{shopItem.name}</Title>
+                    <Paragraph>{shopItem.description}</Paragraph>
+                    <Paragraph strong>{formatMoney(shopItem.price)}</Paragraph>
                     <Select
                       style={{ width: "100%", marginBottom: 24 }}
                       placeholder="Select a size"
                       onChange={handleItemSizeChange}
-                      loading={itemSizesLoading}
+                      loading={shopItemSizesLoading}
                     >
-                      {itemSizesData &&
-                        itemSizesData.__type &&
-                        itemSizesData.__type.enumValues.map((size) => (
+                      {shopItemSizes &&
+                        shopItemSizes.map((size) => (
                           <Option key={size.name} value={size.name}>
                             {size.name}
                           </Option>
@@ -123,16 +122,16 @@ function ShopItem() {
                     <Button
                       type="primary"
                       size="large"
-                      loading={itemLoading}
+                      loading={shopItemLoading}
                       onClick={handleAddToCart}
                       disabled={!selectedItemSize}
                       icon={
-                        mutationCalled && !mutationError
+                        addCartItemCalled && !addCartItemError
                           ? "check-circle"
                           : "shopping-cart"
                       }
                     >
-                      {mutationCalled && !mutationError
+                      {addCartItemCalled && !addCartItemError
                         ? "Added!"
                         : "Add to cart"}
                     </Button>

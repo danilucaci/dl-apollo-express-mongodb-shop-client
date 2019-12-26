@@ -113,20 +113,19 @@ function AddShopItemForm({ form }) {
       {called && error && (
         <Paragraph>{JSON.stringify(error, null, 2)}</Paragraph>
       )}
-      <Form.Item>
-        <Button
-          type="primary"
-          disabled={loading}
-          loading={loading}
-          size="large"
-          htmlType="submit"
-          style={{
-            minWidth: 200,
-          }}
-        >
-          Submit
-        </Button>
-      </Form.Item>
+
+      <Button
+        type="primary"
+        disabled={loading}
+        loading={loading}
+        size="large"
+        htmlType="submit"
+        style={{
+          minWidth: 200,
+        }}
+      >
+        Submit
+      </Button>
     </Form>
   );
 }
@@ -139,20 +138,29 @@ function Dashboard() {
       <Header />
       <Content
         style={{
-          paddingTop: 40,
-          paddingBottom: 80,
+          paddingTop: 48,
+          paddingRight: 16,
+          paddingBottom: 88,
+          paddingLeft: 16,
         }}
       >
         <Row type="flex" justify="center">
-          <Col span={24} md={16} xl={12}>
-            <Row gutter={[24, 24]}>
+          <Col span={24} lg={12}>
+            <Row>
               <Col>
-                <Title level={2}>Add shop item</Title>
+                <Title
+                  level={3}
+                  style={{
+                    marginBottom: 24,
+                  }}
+                >
+                  Add shop item
+                </Title>
               </Col>
               <Col
                 style={{
                   background: "white",
-                  padding: 32,
+                  padding: 24,
                 }}
               >
                 <EnhancedAddShopItemForm />

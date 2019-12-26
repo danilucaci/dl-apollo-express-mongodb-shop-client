@@ -20,9 +20,16 @@ function Orders() {
   return (
     <Layout style={{ background: "#f3f3f3" }}>
       <Header />
-      <Content style={{ padding: "40px 24px" }}>
+      <Content
+        style={{
+          paddingTop: 40,
+          paddingRight: 12,
+          paddingBottom: 120,
+          paddingLeft: 12,
+        }}
+      >
         <Row type="flex" justify="center">
-          <Col lg={16} xl={16}>
+          <Col span={24} lg={18}>
             <Row>
               <Col style={{ padding: 8 }}>
                 <Title level={3}>Your orders</Title>
@@ -31,7 +38,9 @@ function Orders() {
                 <Col
                   style={{
                     background: "white",
-                    padding: 32,
+                    marginLeft: 12,
+                    marginRight: 12,
+                    padding: 16,
                   }}
                 >
                   <Paragraph>Something went wrong...</Paragraph>
@@ -41,7 +50,9 @@ function Orders() {
                 <Col
                   style={{
                     background: "white",
-                    padding: 32,
+                    marginLeft: 12,
+                    marginRight: 12,
+                    padding: 16,
                   }}
                 >
                   <Spin size="large" />
@@ -56,7 +67,7 @@ function Orders() {
                     <Col
                       style={{
                         background: "white",
-                        padding: 32,
+                        padding: 24,
                       }}
                     >
                       <Title level={4}>You have no past orders</Title>
@@ -73,24 +84,24 @@ function Orders() {
                   <Col key={order.id}>
                     <Row style={{ padding: 12 }}>
                       <Col
-                        span={24}
+                        sm={24}
                         style={{
                           background: "white",
-                          paddingTop: 32,
-                          paddingLeft: 32,
-                          paddingRight: 32,
+                          paddingTop: 24,
+                          paddingLeft: 24,
+                          paddingRight: 24,
                           paddingBottom: 0,
                         }}
                       >
                         <Row type="flex" gutter={24}>
-                          <Col span={10}>
+                          <Col md={10}>
                             <Paragraph strong style={{ marginBottom: 8 }}>
                               Order ID:
                             </Paragraph>
                             <Paragraph>{order.id}</Paragraph>
                           </Col>
 
-                          <Col span={10}>
+                          <Col md={10}>
                             <Paragraph strong style={{ marginBottom: 8 }}>
                               Date:
                             </Paragraph>
@@ -99,7 +110,7 @@ function Orders() {
                             </Paragraph>
                           </Col>
 
-                          <Col span={4}>
+                          <Col md={4}>
                             <Paragraph strong style={{ marginBottom: 8 }}>
                               Total:
                             </Paragraph>
@@ -108,10 +119,7 @@ function Orders() {
                         </Row>
                       </Col>
 
-                      <Col
-                        span={24}
-                        style={{ background: "white", padding: 32 }}
-                      >
+                      <Col sm={24} style={{ background: "white", padding: 24 }}>
                         <Title level={4} style={{ marginBottom: 16 }}>
                           Items
                         </Title>
@@ -119,10 +127,10 @@ function Orders() {
                           <Row key={item.id} className="ItemsRow">
                             <Col>
                               <Row type="flex" gutter={[24, 24]}>
-                                <Col span={6}>
+                                <Col sm={6}>
                                   <Image fluid src={item.image} />
                                 </Col>
-                                <Col span={18}>
+                                <Col sm={18}>
                                   <Paragraph strong>{item.name}</Paragraph>
                                   <Paragraph strong>
                                     Cost: {formatMoney(item.price)}

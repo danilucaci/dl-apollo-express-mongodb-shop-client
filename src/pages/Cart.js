@@ -74,19 +74,19 @@ function Cart() {
         style={{
           background: "f3f3f3",
           paddingTop: 40,
-          paddingLeft: 40,
-          paddingRight: 40,
+          paddingLeft: 24,
+          paddingRight: 24,
           paddingBottom: 48,
         }}
       >
         <Row type="flex" justify="center">
-          <Col xl={16}>
+          <Col span={24} lg={18}>
             <Title level={2} style={{ marginBottom: 24 }}>
               Cart
             </Title>
             <Row gutter={[24, 24]}>
-              <Col lg={16}>
-                <Layout style={{ padding: 24, background: "white" }}>
+              <Col md={16}>
+                <Layout style={{ padding: 20, background: "white" }}>
                   {cartError && <Paragraph>Something went wrong...</Paragraph>}
                   {cartLoading && <Spin size="large" />}
                   {cartData &&
@@ -95,25 +95,35 @@ function Cart() {
                     cartData.currentUser.cart.map((cartItem) => (
                       <Row key={cartItem.id} className="ItemsRow">
                         <Col>
-                          <Row type="flex" justify="space-between" gutter={24}>
-                            <Col span={8}>
+                          <Row
+                            type="flex"
+                            justify="space-between"
+                            gutter={[16, 16]}
+                          >
+                            <Col span={24} sm={8}>
                               <Image fluid src={cartItem.item.image} />
                             </Col>
-                            <Col span={16}>
-                              <Row style={{ height: "100%" }}>
+                            <Col span={24} sm={16}>
+                              <Row
+                                className="CartItemHeight"
+                                gutter={[
+                                  { xs: 16, sm: 0 },
+                                  { xs: 16, sm: 0 },
+                                ]}
+                              >
                                 <Col
-                                  span={18}
+                                  span={24}
+                                  sm={18}
+                                  className="CartItemHeight"
                                   style={{
                                     display: "flex",
                                     flexDirection: "column",
                                     justifyContent: "flex-start",
-                                    height: "100%",
                                   }}
                                 >
                                   <Paragraph strong style={{ marginBottom: 8 }}>
                                     {cartItem.item.name}
                                   </Paragraph>
-
                                   <Paragraph style={{ marginBottom: 8 }}>
                                     Size: {cartItem.size}
                                   </Paragraph>
@@ -124,7 +134,7 @@ function Cart() {
                                     {formatMoney(calculateItemTotal(cartItem))}
                                   </Paragraph>
                                   <Button
-                                    style={{ marginTop: "auto" }}
+                                    className="CartItemRemoveButton"
                                     type="ghost"
                                     disabled={deleteCartItemLoading}
                                     loading={deleteCartItemLoading}
@@ -166,7 +176,7 @@ function Cart() {
                                     Remove from cart
                                   </Button>
                                 </Col>
-                                <Col span={6}>
+                                <Col span={24} sm={6}>
                                   <Select
                                     placeholder="Quantity"
                                     loading={updateCartItemLoading}
@@ -207,7 +217,7 @@ function Cart() {
                   )}
                 </Layout>
               </Col>
-              <Col lg={8}>
+              <Col md={8}>
                 <Row style={{ background: "white", padding: 16 }}>
                   <Col>
                     <Title level={3} style={{ marginBottom: 24 }}>

@@ -19,20 +19,41 @@ function OrderConfirmation() {
   return (
     <Layout style={{ background: "#f3f3f3" }}>
       <Header />
-      <Content style={{ padding: "40px 24px" }}>
+      <Content
+        style={{
+          paddingTop: 56,
+          paddingRight: 12,
+          paddingBottom: 64,
+          paddingLeft: 12,
+        }}
+      >
         <Row type="flex" justify="center">
-          <Col lg={20} xl={16}>
+          <Col span={24} lg={18}>
             <Row type="flex" justify={loading ? "center" : "start"}>
               <Col style={{ padding: 8 }}>
                 <Title level={3}>Your order</Title>
               </Col>
               {error && (
-                <Col>
+                <Col
+                  style={{
+                    background: "white",
+                    marginLeft: 12,
+                    marginRight: 12,
+                    padding: 16,
+                  }}
+                >
                   <Paragraph>Something went wrong...</Paragraph>
                 </Col>
               )}
               {loading && (
-                <Col>
+                <Col
+                  style={{
+                    background: "white",
+                    marginLeft: 12,
+                    marginRight: 12,
+                    padding: 16,
+                  }}
+                >
                   <Spin size="large" />
                 </Col>
               )}
@@ -40,24 +61,24 @@ function OrderConfirmation() {
                 <Col>
                   <Row style={{ padding: 12 }}>
                     <Col
-                      span={24}
+                      sm={24}
                       style={{
                         background: "white",
-                        paddingTop: 32,
-                        paddingLeft: 32,
-                        paddingRight: 32,
+                        paddingTop: 24,
+                        paddingLeft: 24,
+                        paddingRight: 24,
                         paddingBottom: 0,
                       }}
                     >
                       <Row type="flex" gutter={24}>
-                        <Col span={10}>
+                        <Col md={10}>
                           <Paragraph strong style={{ marginBottom: 8 }}>
                             Order ID:
                           </Paragraph>
                           <Paragraph>{data.currentUser.orders[0].id}</Paragraph>
                         </Col>
 
-                        <Col span={10}>
+                        <Col md={10}>
                           <Paragraph strong style={{ marginBottom: 8 }}>
                             Date:
                           </Paragraph>
@@ -68,7 +89,7 @@ function OrderConfirmation() {
                           </Paragraph>
                         </Col>
 
-                        <Col span={4}>
+                        <Col md={4}>
                           <Paragraph strong style={{ marginBottom: 8 }}>
                             Total:
                           </Paragraph>
@@ -79,7 +100,7 @@ function OrderConfirmation() {
                       </Row>
                     </Col>
 
-                    <Col span={24} style={{ background: "white", padding: 32 }}>
+                    <Col sm={24} style={{ background: "white", padding: 24 }}>
                       <Title level={4} style={{ marginBottom: 16 }}>
                         Items
                       </Title>
@@ -87,10 +108,10 @@ function OrderConfirmation() {
                         <Row key={item.id} className="ItemsRow">
                           <Col>
                             <Row type="flex" gutter={[24, 24]}>
-                              <Col span={6}>
+                              <Col sm={6}>
                                 <Image fluid src={item.image} />
                               </Col>
-                              <Col span={18}>
+                              <Col sm={18}>
                                 <Paragraph strong>{item.name}</Paragraph>
                                 <Paragraph strong>
                                   Cost: {formatMoney(item.price)}

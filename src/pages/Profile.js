@@ -94,14 +94,17 @@ const Profile = Form.create()(({ form }) => {
   return (
     <Layout style={{ background: "#f3f3f3" }}>
       <Header />
-      <Content style={{ padding: "48px 24px" }}>
+      <Content
+        style={{
+          paddingTop: 48,
+          paddingRight: 16,
+          paddingBottom: 88,
+          paddingLeft: 16,
+        }}
+      >
         <Row type="flex" justify="center">
-          <Col md={20} xl={12}>
-            <Row
-              gutter={[24, 24]}
-              type="flex"
-              justify={userLoading ? "center" : "start"}
-            >
+          <Col span={24} lg={12}>
+            <Row>
               {userError && (
                 <Col>
                   <Paragraph>Something went wrong...</Paragraph>
@@ -113,21 +116,25 @@ const Profile = Form.create()(({ form }) => {
                 </Col>
               )}
 
-              <Col>
-                <Title level={2}>Your account</Title>
+              <Col
+                style={{
+                  marginBottom: 24,
+                }}
+              >
+                <Title level={3}>Your account</Title>
               </Col>
 
               {currentLocalUser && (
                 <Col
                   style={{
                     background: "white",
-                    padding: 32,
+                    padding: 24,
                   }}
                 >
                   <Row>
                     <Col>
                       <Row gutter={[24, 24]} type="flex" align="middle">
-                        <Col span={3}>
+                        <Col span={8} sm={4}>
                           <Image
                             fluid
                             roundedCircle
@@ -139,7 +146,7 @@ const Profile = Form.create()(({ form }) => {
                             onError={(e) => (e.target.src = avatarPlaceholder)}
                           />
                         </Col>
-                        <Col span={21}>
+                        <Col span={16} sm={20}>
                           <Title
                             level={4}
                             style={{
@@ -170,13 +177,7 @@ const Profile = Form.create()(({ form }) => {
                       >
                         Update profile
                       </Title>
-                      <Form
-                        layout="vertical"
-                        style={{
-                          maxWidth: 480,
-                        }}
-                        onSubmit={handleSubmit}
-                      >
+                      <Form layout="vertical" onSubmit={handleSubmit}>
                         <Form.Item label="Full name" hasFeedback>
                           {getFieldDecorator(`fullname`, {
                             rules: [
@@ -198,17 +199,18 @@ const Profile = Form.create()(({ form }) => {
                           !updateUserError &&
                           !updateUserLoading && <Paragraph>Updated</Paragraph>}
 
-                        <Form.Item>
-                          <Button
-                            type="primary"
-                            size="large"
-                            disabled={updateUserLoading}
-                            loading={updateUserLoading}
-                            htmlType="submit"
-                          >
-                            Submit
-                          </Button>
-                        </Form.Item>
+                        <Button
+                          type="primary"
+                          size="large"
+                          disabled={updateUserLoading}
+                          loading={updateUserLoading}
+                          htmlType="submit"
+                          style={{
+                            minWidth: 200,
+                          }}
+                        >
+                          Submit
+                        </Button>
                       </Form>
                     </Col>
                   </Row>

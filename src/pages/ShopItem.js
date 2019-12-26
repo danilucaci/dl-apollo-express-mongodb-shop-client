@@ -63,9 +63,18 @@ function ShopItem() {
   return (
     <Layout>
       <Header />
-      <Content style={{ padding: "40px 24px", background: "#f3f3f3" }}>
+      <Content
+        style={{
+          paddingTop: 48,
+          paddingRight: 16,
+          paddingBottom: 48,
+          paddingLeft: 16,
+
+          background: "#f3f3f3",
+        }}
+      >
         <Row type="flex" justify="center">
-          <Col lg={16} style={{ padding: 40, background: "#fff" }}>
+          <Col lg={16} style={{ padding: 24, background: "#fff" }}>
             <Row
               gutter={[24, 24]}
               type="flex"
@@ -83,13 +92,13 @@ function ShopItem() {
               )}
               {itemData && itemData.shopItem && (
                 <>
-                  <Col span={12}>
+                  <Col md={12}>
                     <Image fluid src={itemData.shopItem.image} />
                   </Col>
                   <Col
-                    span={12}
+                    md={12}
                     style={{
-                      padding: "40px 24px",
+                      padding: 24,
                     }}
                   >
                     <Title level={3}>{itemData.shopItem.name}</Title>
@@ -139,4 +148,5 @@ function ShopItem() {
   );
 }
 
-export default withProtectedRoute()(ShopItem);
+export default ShopItem;
+// export default withProtectedRoute()(ShopItem);

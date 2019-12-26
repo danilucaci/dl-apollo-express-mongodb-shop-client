@@ -89,7 +89,7 @@ function Dropdowns() {
       </Dropdown>
       <Drawer
         title="Cart"
-        width={400}
+        width={320}
         onClose={() => setCartOpen(false)}
         visible={cartOpen}
         bodyStyle={{ paddingBottom: 40 }}
@@ -245,7 +245,7 @@ function Header() {
       }}
     >
       <Row type="flex" justify="center">
-        <Col span={24} m={16} xl={20}>
+        <Col span={24} lg={18}>
           <Row type="flex" justify="space-between">
             <Col>
               <NavLink to="/">

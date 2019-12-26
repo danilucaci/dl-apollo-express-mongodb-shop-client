@@ -25,9 +25,16 @@ function Home() {
   return (
     <Layout style={{ background: "#f3f3f3" }}>
       <Header />
-      <Content style={{ padding: "48px 24px" }}>
+      <Content
+        style={{
+          paddingTop: 48,
+          paddingRight: 24,
+          paddingBottom: 120,
+          paddingLeft: 24,
+        }}
+      >
         <Row type="flex" justify="center">
-          <Col lg={20}>
+          <Col span={24} lg={18}>
             <Row
               gutter={[24, 24]}
               type="flex"

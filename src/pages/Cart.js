@@ -37,9 +37,11 @@ const { Paragraph, Title, Text } = Typography;
 const quantityValues = Array.from({ length: 10 }, (_, i) => i + 1);
 
 function Cart() {
-  const { data: cartData, loading: cartLoading, error: cartError } = useQuery(
-    CURRENT_USER_CART,
-  );
+  const {
+    data: { currentUser: { cart: currentUserCart } = {} } = {},
+    loading: cartLoading,
+    error: cartError,
+  } = useQuery(CURRENT_USER_CART);
 
   const history = useHistory();
 
@@ -89,10 +91,8 @@ function Cart() {
                 <Layout style={{ padding: 20, background: "white" }}>
                   {cartError && <Paragraph>Something went wrong...</Paragraph>}
                   {cartLoading && <Spin size="large" />}
-                  {cartData &&
-                  cartData.currentUser &&
-                  cartData.currentUser.cart.length > 0 ? (
-                    cartData.currentUser.cart.map((cartItem) => (
+                  {currentUserCart && currentUserCart.length > 0 ? (
+                    currentUserCart.map((cartItem) => (
                       <Row key={cartItem.id} className="ItemsRow">
                         <Col>
                           <Row
@@ -231,12 +231,8 @@ function Cart() {
                       </Col>
                       <Col>
                         <Text strong>
-                          {cartData &&
-                          cartData.currentUser &&
-                          cartData.currentUser.cart
-                            ? formatMoney(
-                                calculateCartTotal(cartData.currentUser.cart),
-                              )
+                          {currentUserCart
+                            ? formatMoney(calculateCartTotal(currentUserCart))
                             : 0}
                         </Text>
                       </Col>

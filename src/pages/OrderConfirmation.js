@@ -14,7 +14,11 @@ const { Content } = Layout;
 const { Paragraph, Title } = Typography;
 
 function OrderConfirmation() {
-  const { data, loading, error } = useQuery(CURRENT_USER_ORDERS);
+  const {
+    data: { currentUser: { orders } = {} } = {},
+    loading,
+    error,
+  } = useQuery(CURRENT_USER_ORDERS);
 
   return (
     <Layout style={{ background: "#f3f3f3" }}>
@@ -57,7 +61,7 @@ function OrderConfirmation() {
                   <Spin size="large" />
                 </Col>
               )}
-              {data && data.currentUser && data.currentUser.orders.length > 0 && (
+              {orders && orders.length > 0 && (
                 <Col>
                   <Row style={{ padding: 12 }}>
                     <Col
@@ -75,7 +79,7 @@ function OrderConfirmation() {
                           <Paragraph strong style={{ marginBottom: 8 }}>
                             Order ID:
                           </Paragraph>
-                          <Paragraph>{data.currentUser.orders[0].id}</Paragraph>
+                          <Paragraph>{orders[0].id}</Paragraph>
                         </Col>
 
                         <Col md={10}>
@@ -83,9 +87,7 @@ function OrderConfirmation() {
                             Date:
                           </Paragraph>
                           <Paragraph>
-                            {formatOrderDate(
-                              data.currentUser.orders[0].createdAt,
-                            )}
+                            {formatOrderDate(orders[0].createdAt)}
                           </Paragraph>
                         </Col>
 
@@ -93,9 +95,7 @@ function OrderConfirmation() {
                           <Paragraph strong style={{ marginBottom: 8 }}>
                             Total:
                           </Paragraph>
-                          <Paragraph>
-                            {formatMoney(data.currentUser.orders[0].total)}
-                          </Paragraph>
+                          <Paragraph>{formatMoney(orders[0].total)}</Paragraph>
                         </Col>
                       </Row>
                     </Col>
@@ -104,7 +104,7 @@ function OrderConfirmation() {
                       <Title level={4} style={{ marginBottom: 16 }}>
                         Items
                       </Title>
-                      {data.currentUser.orders[0].items.map((item) => (
+                      {orders[0].items.map((item) => (
                         <Row key={item.id} className="ItemsRow">
                           <Col>
                             <Row type="flex" gutter={[24, 24]}>

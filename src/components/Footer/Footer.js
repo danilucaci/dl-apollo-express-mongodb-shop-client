@@ -17,11 +17,11 @@ function Footer() {
         background: "white",
       }}
     >
-      <Row type="flex" gutter={[24, 24]} justify="center">
+      <Row type="flex" justify="center">
         <Col span={24} lg={18}>
           <Row
             type="flex"
-            gutter={[{ xs: 24, sm: 64, lg: 88 }, 24]}
+            gutter={[{ xs: 24, sm: 48, lg: 88 }, 24]}
             justify="center"
           >
             <Col>

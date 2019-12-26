@@ -61,10 +61,11 @@ function Cart() {
   );
 
   useEffect(() => {
-    if (addOrderCalled && !addOrderError) {
+    // Wait for the mutation to refetch to avoid seeing stale data in the orders confirmation
+    if (addOrderCalled && !addOrderLoading && !addOrderError) {
       history.push(routes.orderConfirmation);
     }
-  }, [addOrderCalled, addOrderError, history]);
+  }, [addOrderCalled, addOrderError, addOrderLoading, history]);
 
   return (
     <Layout>
@@ -246,6 +247,8 @@ function Cart() {
                                 user: currentLocalUserID,
                               },
                             },
+                            // Wait for the mutation to refetch to avoid seeing stale data in the orders confirmation
+                            awaitRefetchQueries: true,
                             refetchQueries: [
                               {
                                 query: CURRENT_USER_ORDERS,

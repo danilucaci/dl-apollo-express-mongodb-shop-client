@@ -15,7 +15,11 @@ const { Content } = Layout;
 const { Paragraph, Title } = Typography;
 
 function Orders() {
-  const { data, loading, error } = useQuery(CURRENT_USER_ORDERS);
+  const {
+    data: { currentUser: { orders } = {} } = {},
+    loading,
+    error,
+  } = useQuery(CURRENT_USER_ORDERS);
 
   return (
     <Layout style={{ background: "#f3f3f3" }}>
@@ -59,28 +63,23 @@ function Orders() {
                 </Col>
               )}
 
-              {data &&
-                data.currentUser &&
-                data.currentUser.orders &&
-                data.currentUser.orders.length === 0 && (
-                  <Row>
-                    <Col
-                      style={{
-                        background: "white",
-                        padding: 24,
-                      }}
-                    >
-                      <Title level={4}>You have no past orders</Title>
-                      <Paragraph>Visit our shop to get started.</Paragraph>
-                    </Col>
-                  </Row>
-                )}
+              {orders && orders.length === 0 && (
+                <Row>
+                  <Col
+                    style={{
+                      background: "white",
+                      padding: 24,
+                    }}
+                  >
+                    <Title level={4}>You have no past orders</Title>
+                    <Paragraph>Visit our shop to get started.</Paragraph>
+                  </Col>
+                </Row>
+              )}
 
-              {data &&
-                data.currentUser &&
-                data.currentUser.orders &&
-                data.currentUser.orders.length > 0 &&
-                data.currentUser.orders.map((order) => (
+              {orders &&
+                orders.length > 0 &&
+                orders.map((order) => (
                   <Col key={order.id}>
                     <Row style={{ padding: 12 }}>
                       <Col

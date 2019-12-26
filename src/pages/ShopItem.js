@@ -148,5 +148,4 @@ function ShopItem() {
   );
 }
 
-export default ShopItem;
-// export default withProtectedRoute()(ShopItem);
+export default withProtectedRoute()(ShopItem);

@@ -2,7 +2,7 @@
   "name": "dl-apollo-express-mongodb-shop-client",
   "version": "1.0.0",
   "private": true,
-  "author": "Dani Lucaci <danilucaci@gmail.com>",
+  "author": "Dani Lucaci <hello@danilucaci.com>",
   "license": "MIT",
   "dependencies": {
     "@apollo/react-hooks": "^3.1.3",
